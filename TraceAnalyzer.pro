@@ -15,12 +15,28 @@ TEMPLATE = app
 SOURCES += main.cpp\
         traceanalyzer.cpp \
     action.cpp \
-    actionpage.cpp
+    actionpage.cpp \
+    serverpage.cpp \
+    server.cpp \
+    simsce.cpp \
+    out.cpp \
+    inter_arrival.cpp \
+    interestconct.cpp \
+    step1.cpp
 
 HEADERS  += traceanalyzer.h \
     DBconnection.h \
     action.h \
-    actionpage.h
+    actionpage.h \
+    serverpage.h \
+    server.h \
+    simsce.h \
+    out.h \
+    inter_arrival.h \
+    interestconct.h \
+    step1.h
 
 FORMS    += traceanalyzer.ui \
-    actionpage.ui
+    actionpage.ui \
+    serverpage.ui \
+    step1.ui
