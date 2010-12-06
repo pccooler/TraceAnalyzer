@@ -15,7 +15,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
         traceanalyzer.cpp \
     action.cpp \
-    serverpage.cpp \
     server.cpp \
     simsce.cpp \
     out.cpp \
@@ -27,7 +26,6 @@ SOURCES += main.cpp\
 HEADERS  += traceanalyzer.h \
     DBconnection.h \
     action.h \
-    serverpage.h \
     server.h \
     simsce.h \
     out.h \
@@ -37,5 +35,4 @@ HEADERS  += traceanalyzer.h \
     func.h
 
 FORMS    += traceanalyzer.ui \
-    serverpage.ui \
     step1.ui
