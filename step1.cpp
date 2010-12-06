@@ -5,6 +5,9 @@
 #include <QRegExp>
 
 #include "action.h"
+#include <QSqlQuery>
+#include <QDebug>
+#include <QTime>
 
 Step1::Step1(QWidget *parent) :
     QWidget(parent),
