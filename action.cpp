@@ -2,6 +2,7 @@
 #include <QSqlQuery>
 #include <QDebug>
 #include <QVariant>
+#include <QStringList>
 
 
 Action::Action()
@@ -126,4 +127,12 @@ void Action::setTime(QString str)
 void Action::setPeer(QString str)
 {
     peer = str;
+}
+
+void Action::setDate(QString str)
+{
+    QStringList list = str.split(" ");
+    action = list.value(0);
+    time = list.value(1);
+    peer = list.value(2);
 }

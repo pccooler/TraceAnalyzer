@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     out.cpp \
     inter_arrival.cpp \
     interestconct.cpp \
-    step1.cpp
+    step1.cpp \
+    func.cpp
 
 HEADERS  += traceanalyzer.h \
     DBconnection.h \
@@ -34,7 +35,8 @@ HEADERS  += traceanalyzer.h \
     out.h \
     inter_arrival.h \
     interestconct.h \
-    step1.h
+    step1.h \
+    func.h
 
 FORMS    += traceanalyzer.ui \
     actionpage.ui \

@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
 
     if(!connect_DB())
         return false;
+    if(!create_Table())
+        return false;
 
     TraceAnalyzer w;
     w.show();

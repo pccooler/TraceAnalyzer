@@ -2,6 +2,7 @@
 #define STEP1_H
 
 #include <QWidget>
+#include <QStringList>
 
 namespace Ui {
     class Step1;
@@ -17,6 +18,11 @@ public:
 
 private:
     Ui::Step1 *ui;
+    QStringList fileNames;
+
+private slots:
+    void on_startBtn_clicked();
+    void on_browserBtn_clicked();
 };
 
 #endif // STEP1_H

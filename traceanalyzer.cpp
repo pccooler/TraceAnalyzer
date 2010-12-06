@@ -1,5 +1,6 @@
 #include "traceanalyzer.h"
 #include "ui_traceanalyzer.h"
+#include "step1.h"
 
 TraceAnalyzer::TraceAnalyzer(QWidget *parent) :
         QMainWindow(parent),
@@ -13,6 +14,8 @@ TraceAnalyzer::TraceAnalyzer(QWidget *parent) :
     //Ìí¼ÓAction±êÇ©Ò³Ãæ
     ActionPage *actionPage = new ActionPage();
     ui->tabWidget->addTab(actionPage,"Action");
+    Step1 *step1 = new Step1();
+    ui->tabWidget->insertTab(0,step1,"Step1");
 }
 
 TraceAnalyzer::~TraceAnalyzer()
