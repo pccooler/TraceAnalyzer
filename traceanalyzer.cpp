@@ -11,9 +11,7 @@ TraceAnalyzer::TraceAnalyzer(QWidget *parent) :
     //³õÊ¼»¯×´Ì¬À¸
     createStatusBar();
 
-    //Ìí¼ÓAction±êÇ©Ò³Ãæ
-    ActionPage *actionPage = new ActionPage();
-    ui->tabWidget->addTab(actionPage,"Action");
+    //Ìí¼Ó±êÇ©Ò³Ãæ
     Step1 *step1 = new Step1();
     ui->tabWidget->insertTab(0,step1,"Step1");
 }
