@@ -49,18 +49,12 @@
     <property name="title">
      <string>文件(&amp;F)</string>
     </property>
-    <addaction name="exitAct"/>
-   </widget>
-   <widget class="QMenu" name="menu">
-    <property name="title">
-     <string>动作(&amp;A)</string>
-    </property>
+    <addaction name="action"/>
    </widget>
    <addaction name="menu_F"/>
-   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="exitAct">
+  <action name="action">
    <property name="text">
     <string>退出</string>
    </property>
@@ -70,7 +64,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>exitAct</sender>
+   <sender>action</sender>
    <signal>triggered()</signal>
    <receiver>TraceAnalyzer</receiver>
    <slot>close()</slot>
@@ -81,7 +75,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>319</x>
-     <y>159</y>
+     <y>239</y>
     </hint>
    </hints>
   </connection>

@@ -29,13 +29,15 @@ Step4::Step4(QWidget *parent) :
 
 
     int i;
+    double xval2[Size];
+    double yval2[Size];
     for(i=0; i<Size;i++)
     {
         xval[i] = double(i) * 10.0 / double(Size - 1);
         yval[i] = qSin(xval[i]) * qCos(2.0 * xval[i]);
 
-//        xval[i] = i;
-//        yval[i] = i+5;
+        xval2[i] = i;
+        yval2[i] = i+5;
     }
 
     d_curves.setSymbol(new QwtSymbol(QwtSymbol::NoSymbol, Qt::NoBrush,
@@ -46,6 +48,16 @@ Step4::Step4(QWidget *parent) :
 
     d_curves.setRawSamples(xval,yval,27);
     d_curves.attach(qwtplot_p);
+
+    QwtPlotCurve d_curves2;
+    d_curves2.setSymbol(new QwtSymbol(QwtSymbol::NoSymbol, Qt::NoBrush,
+                                     QPen(Qt::black), QSize(5, 5) ) );
+    d_curves2.setPen(QColor(Qt::darkGreen));
+    d_curves2.setStyle(QwtPlotCurve::Lines);
+    d_curves2.setCurveAttribute(QwtPlotCurve::Fitted);
+
+    d_curves2.setRawSamples(xval2,yval2,27);
+    d_curves2.attach(qwtplot_p);
 
 }
 

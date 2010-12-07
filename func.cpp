@@ -11,6 +11,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QStringList>
+#include <QDebug>
 
 func::func()
 {
@@ -32,7 +33,22 @@ bool func::do_load_file(QStringList fileNames)
             QTextStream in(&file);
             QString line;
 
-            if(fileName.contains(QRegExp(".*/[Ss]imsce.*")))//正则表达式匹配action文件
+            if(fileName.contains(QRegExp(".*/out.*.0")))//正则表达式匹配out?.0文件
+            {
+                line = in.readLine();
+                while(!line.isNull())
+                {
+                    if(line.contains(QRegExp("Cost .* seconds totally.")))
+                    {
+                        QStringList lineList = line.split(" ");
+                        line = lineList.value(1);
+                        qDebug()<<line;
+                    }
+                    line = in.readLine();
+                }
+
+            }
+            if(fileName.contains(QRegExp(".*/[Ss]im[Ss]ce.*")))//正则表达式匹配SimSce文件
             {
                 SimSce *simsce_p = new SimSce();
                 line = in.readLine();
@@ -45,6 +61,7 @@ bool func::do_load_file(QStringList fileNames)
                         QString num = numlist.value(0);
                         num = num.mid(line.indexOf("(")+1);
                         filePieceNum = num.toDouble();
+                        qDebug()<<filePieceNum;
                     }
                     if(line.contains("[Nodes]"))
                     {

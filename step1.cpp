@@ -3,6 +3,7 @@
 #include "func.h"
 #include <QFileDialog>
 #include <QRegExp>
+#include <QMessageBox>
 
 #include "action.h"
 #include <QSqlQuery>
@@ -31,7 +32,7 @@ void Step1::on_browserBtn_clicked()
     QString actionTE;
     foreach(QString fileName,fileNames)
     {
-        if(fileName.contains(QRegExp(".*/[Ss]imsce.*.tr")))
+        if(fileName.contains(QRegExp(".*/[Ss]im[Ss]ce.*.lst")))
         simsceTE += fileName.mid(fileName.lastIndexOf("/")+1)+"\n";
         if(fileName.contains(QRegExp(".*/[Oo]ut.*.tr")))
         outTE += fileName.mid(fileName.lastIndexOf("/")+1)+"\n";
@@ -50,7 +51,7 @@ void Step1::on_startBtn_clicked()
 {
     func *func_p = new func();
     func_p->do_load_file(fileNames);
-
-    Action *action_p = new Action();
-    action_p->do_query_DB();
+    QMessageBox msgBox;
+    msgBox.setText(tr("数据读入完成"));
+    msgBox.exec();
 }

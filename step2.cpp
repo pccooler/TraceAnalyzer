@@ -15,7 +15,4 @@ Step2::~Step2()
 
 void Step2::on_pushButton_clicked()
 {
-    QWidget *h_p = new QWidget();
-    h_p->resize(200,200);
-    h_p->show();
 }

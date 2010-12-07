@@ -35,6 +35,8 @@ void SimSce::setDate(QString str)
     peerID = strList.value(1);
     downBandWidth = strList.value(4);
     upBandWidth = strList.value(5);
+    downBandWidth = downBandWidth.replace(";","");
+    upBandWidth = upBandWidth.replace(";","");
     downBandWidth = downBandWidth.mid(downBandWidth.indexOf(":")+1);
     upBandWidth = upBandWidth.mid(upBandWidth.indexOf(":")+1);
 }

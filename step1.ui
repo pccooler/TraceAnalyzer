@@ -103,7 +103,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QTextEdit" name="actionTE"/>
+            <widget class="QTextEdit" name="actionTE">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>

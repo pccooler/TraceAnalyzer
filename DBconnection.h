@@ -30,7 +30,7 @@ static bool create_Table()
     //peerID、上传带宽、下载带宽
     if(!query.exec("create table SimSce ("
                    "NodeType varchar(1),"
-                   "peerID varchar(20),"
+                   "peerID varchar(20) primary key,"
                    "Upload double,"
                    "Download double)"))
     {
