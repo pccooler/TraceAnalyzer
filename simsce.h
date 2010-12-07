@@ -3,6 +3,7 @@
 #include <QString>
 
 static int filePieceNum ;//文件块数
+static double seedUpLink;//种子节点上传带宽
 
 class SimSce
 {

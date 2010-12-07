@@ -75,11 +75,12 @@ static bool create_Table()
     }
 
     //建立Server表
-    //服务器ID、服务器类型、输出流量速率
+    //服务器ID、服务器类型、输出流量速率、排序ID
     if(!query.exec("create table Server ("
                    "ServerID varchar(20),"
                    "Type varchar(1),"
-                   "Rate double)"))
+                   "Rate double,"
+                   "uniID int)"))
     {
         QMessageBox::critical(0, qApp->tr("Cannot Create Table"),
                               qApp->tr("Unable to Create Server Table."),

@@ -12,6 +12,8 @@
 #include <QFileDialog>
 #include <QStringList>
 #include <QDebug>
+#include <QSqlQuery>
+#include <QVariant>
 
 func::func()
 {
@@ -58,10 +60,17 @@ bool func::do_load_file(QStringList fileNames)
                     {
                         line = in.readLine();
                         QStringList numlist = line.split(",");
+                        //获取文件块数
                         QString num = numlist.value(0);
                         num = num.mid(line.indexOf("(")+1);
-                        filePieceNum = num.toDouble();
-                        qDebug()<<filePieceNum;
+                        filePieceNum = num.toInt();
+                        //获取seed上传带宽
+                        num = numlist.value(3);
+                        numlist = num.split(")");
+                        num = numlist.value(0);
+                        seedUpLink = num.toDouble();
+
+                        qDebug()<<filePieceNum<<seedUpLink;
                     }
                     if(line.contains("[Nodes]"))
                     {
@@ -112,7 +121,6 @@ bool func::do_load_file(QStringList fileNames)
     return true;
 }
 
-
 bool func::saveFile(const QString& fileName)
 {
     QFile file(fileName);
@@ -123,4 +131,56 @@ bool func::saveFile(const QString& fileName)
     }
     QTextStream out(&file);
     return true;
+}
+
+double func::avg_peer_download_time()//平均节点下载时间
+{
+    QSqlQuery query;
+    if(!query.exec("create view tempview as "
+               "select (FinishTime-JoinTime) as DownTime from action "
+               "where JoinTime <> 0 and StartTime <> 0 "
+               "and FinishTime <> 0 and LeaveTime <> 0"))
+        qDebug()<<"error create tempview";
+    if(!query.exec("select count(*) from tempview"))
+        qDebug()<<"error select tempview";
+    query.next();
+    double sumPeers = query.value(0).toDouble();
+    if(!query.exec("select sum(DownTime) from tempview"))
+        qDebug()<<"error select sum in tempview";
+    query.next();
+    double sumTime = query.value(0).toDouble();
+    if(!query.exec("drop view tempview"))
+        qDebug()<<"error drop tempview";
+    return sumTime/sumPeers;
+}
+
+double func::avg_seed_uplink_utilization()//平均种子带宽利用率
+{
+    QSqlQuery query;
+    if(!query.exec("select sum(Rate) from Server where Type = 'S'"))
+        qDebug()<<"error select sum(Rate) from Server";
+    query.next();
+    double sumRate = query.value(0).toDouble();
+    if(!query.exec("select count(*) from Server where Type = 'S'"))
+        qDebug()<<"error select count(*) from Server";
+    query.next();
+    double sumSampling = query.value(0).toDouble();
+
+    if(!seedUpLink) seedUpLink = 1;
+    return (sumRate/sumSampling)/seedUpLink;
+}
+
+void seed_uplink_utilization(double *xval,double *yval,int *pointNum)//种子带宽利用率曲线图
+{
+    QSqlQuery query;
+    int totalNum = 0;
+    if(!query.exec("select Rate,uniID from Server where Type = 'S'"))
+        qDebug()<<"error select Rate,uniID from Server";
+    while(query.next())
+    {
+        xval[totalNum]=query.value(1).toDouble()*5;
+        yval[totalNum]=query.value(0).toDouble()/seedUpLink;
+        ++totalNum;
+    }
+    *pointNum = totalNum;
 }

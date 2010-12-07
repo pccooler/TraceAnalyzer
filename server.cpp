@@ -6,6 +6,7 @@
 
 Server::Server()
 {
+    uniID = 1;
 }
 
 void Server::setDate(const QString str)
@@ -21,16 +22,18 @@ bool Server::do_insert_DB()
     QSqlQuery query;
     if(type.toStdString() == "S")
     {
-        query.prepare("insert into server (serverID,Type,Rate) values(:serverID,:Type,:Rate)");
+        query.prepare("insert into server (serverID,Type,Rate,uniID) values(:serverID,:Type,:Rate,:uniID)");
         query.bindValue(0,serverID);
         query.bindValue(1,type);
         query.bindValue(2,rate.toDouble());
+        query.bindValue(3,uniID);
 
         if(!query.exec())
         {
             qDebug() << "Insert S error!";
             return false;
         }
+        ++uniID;
         return true;
     }
 }
