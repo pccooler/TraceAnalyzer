@@ -17,10 +17,5 @@ int main(int argc, char *argv[])
     TraceAnalyzer w;
     w.show();
 
-//    close_DB();
-
-
-
-
     return a.exec();
 }

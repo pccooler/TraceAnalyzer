@@ -15,12 +15,12 @@ bool Action::do_insert_DB()
     QSqlQuery query;
     if(action.toStdString() == "J")
     {
-        query.prepare("insert into action values(:peerID,:JoinTime,NULL,NULL,NULL)");
+        query.prepare("insert into action (PeerID,JoinTime) values(:peerID,:JoinTime)");
         query.bindValue(0,peer);
         query.bindValue(1,time.toDouble());
         if(!query.exec())
         {
-            qDebug() << "Insert error!";
+            qDebug() << "Insert J error!";
             return false;
         }
         return true;
@@ -32,7 +32,7 @@ bool Action::do_insert_DB()
         query.bindValue(1,peer);
         if(!query.exec())
         {
-            qDebug() << "Insert error!";
+            qDebug() << "Update G error!";
             return false;
         }
         return true;
@@ -44,7 +44,7 @@ bool Action::do_insert_DB()
         query.bindValue(1,peer);
         if(!query.exec())
         {
-            qDebug() << "Insert error!";
+            qDebug() << "Update F error!";
             return false;
         }
         return true;
@@ -56,7 +56,56 @@ bool Action::do_insert_DB()
         query.bindValue(1,peer);
         if(!query.exec())
         {
-            qDebug() << "Insert error!";
+            qDebug() << "Update L error!";
+            return false;
+        }
+        return true;
+    }
+    if(action.toStdString() == "SD")
+    {
+        query.prepare("update action set SumDownload=:SumDownload where peerID = :peerID");
+        query.bindValue(0,forthDate.toDouble());
+        query.bindValue(1,peer);
+        if(!query.exec())
+        {
+            qDebug() << "Update SD error!";
+            return false;
+        }
+        return true;
+    }
+    if(action.toStdString() == "SU")
+    {
+        query.prepare("update action set SumUpload=:SumUpload where peerID = :peerID");
+        query.bindValue(0,forthDate.toDouble());
+        query.bindValue(1,peer);
+        if(!query.exec())
+        {
+            qDebug() << "Update SU error!";
+            return false;
+        }
+        return true;
+    }
+    if(action.toStdString() == "A")
+    {
+        query.prepare("insert into InterArrival (PeerID,ArrivalTime,RcdPiece) values(:peerID,:ArrivalTime,:RcdPiece)");
+        query.bindValue(0,peer);
+        query.bindValue(1,time.toDouble());
+        query.bindValue(2,forthDate.toDouble());
+        if(!query.exec())
+        {
+            qDebug() << "Insert A error!";
+            return false;
+        }
+        return true;
+    }
+    if(action.toStdString() == "C")
+    {
+        query.prepare("insert into InterestConct (Time,InterestConctNum) values(:Time,:InterestConctNum)");
+        query.bindValue(0,time.toDouble());
+        query.bindValue(1,forthDate.toDouble());
+        if(!query.exec())
+        {
+            qDebug() << "Insert C error!";
             return false;
         }
         return true;
@@ -68,12 +117,12 @@ void Action::do_query_DB()
 {
     QSqlQuery query;
     query.exec("select * from action where JoinTime <> '' and StartTime <> '' and FinishTime <> '' and LeaveTime <> ''");
-//    query.exec("select * from action");
+    //    query.exec("select * from action");
 
     while(query.next())
     {
-        qDebug() << query.value(0).toString() << query.value(1).toDouble()
-                <<query.value(2).toDouble()<<query.value(3).toDouble()<<query.value(4).toDouble();
+        qDebug() << query.value(1).toString() << query.value(2).toDouble()
+                <<query.value(3).toDouble()<<query.value(4).toDouble()<<query.value(5).toDouble();
     }
 
     qDebug() << "Total:"<<totalRecordNum();
@@ -114,25 +163,11 @@ double Action::avgDownloadTime()
     return query.value(0).toDouble();
 }
 
-void Action::setAction(QString str)
-{
-    action = str;
-}
-
-void Action::setTime(QString str)
-{
-    time = str;
-}
-
-void Action::setPeer(QString str)
-{
-    peer = str;
-}
-
 void Action::setDate(QString str)
 {
     QStringList list = str.split(" ");
     action = list.value(0);
     time = list.value(1);
     peer = list.value(2);
+    forthDate = list.value(3);
 }

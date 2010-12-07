@@ -27,12 +27,12 @@ static bool create_Table()
 
 
     //建立SimSce表
+    //peerID、上传带宽、下载带宽
     if(!query.exec("create table SimSce ("
-                   "peerID varchar(20) Primary Key,"
-                   "JoinTime double,"
-                   "StartTime double,"
-                   "FinishTime double,"
-                   "LeaveTime double)"))
+                   "NodeType varchar(1),"
+                   "peerID varchar(20),"
+                   "Upload double,"
+                   "Download double)"))
     {
         QMessageBox::critical(0, qApp->tr("Cannot Create Table"),
                               qApp->tr("Unable to Create SimSce Table."),
@@ -75,12 +75,11 @@ static bool create_Table()
     }
 
     //建立Server表
+    //服务器ID、服务器类型、输出流量速率
     if(!query.exec("create table Server ("
-                   "peerID varchar(20) Primary Key,"
-                   "JoinTime double,"
-                   "StartTime double,"
-                   "FinishTime double,"
-                   "LeaveTime double)"))
+                   "ServerID varchar(20),"
+                   "Type varchar(1),"
+                   "Rate double)"))
     {
         QMessageBox::critical(0, qApp->tr("Cannot Create Table"),
                               qApp->tr("Unable to Create Server Table."),
@@ -90,15 +89,44 @@ static bool create_Table()
 
 
     //建立Action表
+    //ActionType('N':普通;'A':inter-arrival;'C':interestConct)、peerID、
+    //加入时间、开始时间、完成时间、离开时间、下载总块数、上传总块数
     if(!query.exec("create table Action ("
-                   "peerID varchar(20) Primary Key,"
+                   "peerID varchar(20) primary key,"
                    "JoinTime double,"
                    "StartTime double,"
                    "FinishTime double,"
-                   "LeaveTime double)"))
+                   "LeaveTime double,"
+                   "SumDownload double,"
+                   "SumUpload double)"))
     {
         QMessageBox::critical(0, qApp->tr("Cannot Create Table"),
                               qApp->tr("Unable to Create Action Table."),
+                              QMessageBox::Cancel);
+        return false;
+    }
+
+    //建立InterArrival表
+    //ActionType,PeerID,ArrivalTime,RcdPiece
+    if(!query.exec("create table InterArrival ("
+                   "peerID varchar(20),"
+                   "ArrivalTime double,"
+                   "RcdPiece double)"))
+    {
+        QMessageBox::critical(0, qApp->tr("Cannot Create Table"),
+                              qApp->tr("Unable to Create InterArrival Table."),
+                              QMessageBox::Cancel);
+        return false;
+    }
+
+    //建立InterestConct表
+    //ActionType,Time,InterestConctNum
+    if(!query.exec("create table InterestConct ("
+                   "Time double,"
+                   "InterestConctNum double)"))
+    {
+        QMessageBox::critical(0, qApp->tr("Cannot Create Table"),
+                              qApp->tr("Unable to Create InterestConct Table."),
                               QMessageBox::Cancel);
         return false;
     }

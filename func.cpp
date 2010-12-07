@@ -10,6 +10,7 @@
 #include <QTextCodec>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QStringList>
 
 func::func()
 {
@@ -33,6 +34,30 @@ bool func::do_load_file(QStringList fileNames)
 
             if(fileName.contains(QRegExp(".*/[Ss]imsce.*")))//正则表达式匹配action文件
             {
+                SimSce *simsce_p = new SimSce();
+                line = in.readLine();
+                while(!line.isNull())
+                {
+                    if(line.contains("[Sessions]"))
+                    {
+                        line = in.readLine();
+                        QStringList numlist = line.split(",");
+                        QString num = numlist.value(0);
+                        num = num.mid(line.indexOf("(")+1);
+                        filePieceNum = num.toDouble();
+                    }
+                    if(line.contains("[Nodes]"))
+                    {
+                        line = in.readLine();
+                        while(!line.contains("[Network]"))
+                        {
+                            simsce_p->setDate(line);
+                            simsce_p->do_insert_DB();
+                            line = in.readLine();
+                        }
+                    }
+                    line = in.readLine();
+                }
 
             }
             if(fileName.contains(QRegExp(".*/[Oo]ut.*")))//正则表达式匹配out文件
@@ -41,7 +66,14 @@ bool func::do_load_file(QStringList fileNames)
             }
             if(fileName.contains(QRegExp(".*/[Ss]erver.*")))//正则表达式匹配server文件
             {
-
+                Server *server_p = new Server();
+                line = in.readLine();
+                while(!line.isNull())
+                {
+                    server_p->setDate(line);
+                    server_p->do_insert_DB();
+                    line = in.readLine();
+                }
             }
             if(fileName.contains(QRegExp(".*/[Aa]ction.*")))//正则表达式匹配action文件
             {

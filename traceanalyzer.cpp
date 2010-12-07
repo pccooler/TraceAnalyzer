@@ -2,6 +2,8 @@
 #include "ui_traceanalyzer.h"
 #include "step1.h"
 #include "step2.h"
+#include "step3.h"
+#include "step4.h"
 
 TraceAnalyzer::TraceAnalyzer(QWidget *parent) :
         QMainWindow(parent),
@@ -17,6 +19,10 @@ TraceAnalyzer::TraceAnalyzer(QWidget *parent) :
     ui->tabWidget->addTab(step1_p,"Step1");
     Step2 *step2_p = new Step2();
     ui->tabWidget->addTab(step2_p,"Step2");
+    Step3 *step3_p = new Step3();
+    ui->tabWidget->addTab(step3_p,"Step3");
+    Step4 *step4_p = new Step4();
+    ui->tabWidget->addTab(step4_p,"Step4");
 }
 
 TraceAnalyzer::~TraceAnalyzer()
