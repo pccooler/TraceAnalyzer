@@ -15,6 +15,8 @@
 #include <QSqlQuery>
 #include <QVariant>
 
+const double pieceSize = 256;
+
 func::func()
 {
 }
@@ -44,7 +46,7 @@ bool func::do_load_file(QStringList fileNames)
                     {
                         QStringList lineList = line.split(" ");
                         line = lineList.value(1);
-                        qDebug()<<line;
+                        qDebug()<<"runtime:"<<line;
                     }
                     line = in.readLine();
                 }
@@ -63,14 +65,14 @@ bool func::do_load_file(QStringList fileNames)
                         //»ñÈ¡ÎÄ¼þ¿éÊý
                         QString num = numlist.value(0);
                         num = num.mid(line.indexOf("(")+1);
-                        filePieceNum = num.toInt();
+                        filePieceNum = num.toDouble();
                         //»ñÈ¡seedÉÏ´«´ø¿í
                         num = numlist.value(3);
                         numlist = num.split(")");
                         num = numlist.value(0);
                         seedUpLink = num.toDouble();
 
-                        qDebug()<<filePieceNum<<seedUpLink;
+                        qDebug()<<"filePieceNum:"<<filePieceNum<<"seedUpLink:"<<seedUpLink;
                     }
                     if(line.contains("[Nodes]"))
                     {
@@ -174,13 +176,38 @@ void func::seed_uplink_utilization(double *xval,double *yval,int *pointNum)//ÖÖ×
 {
     QSqlQuery query;
     int totalNum = 0;
-    if(!query.exec("select Rate,uniID from Server where Type = 'S'"))
-        qDebug()<<"error select Rate,uniID from Server";
+    if(!query.exec("select Rate,Time from Server where Type = 'S'"))
+        qDebug()<<"error select Rate,Time from Server";
     while(query.next())
     {
-        xval[totalNum]=query.value(1).toDouble()*5;
+        xval[totalNum]=query.value(1).toDouble();
         yval[totalNum]=query.value(0).toDouble()/seedUpLink;
         ++totalNum;
     }
     *pointNum = totalNum;
+}
+
+double func::seed_normalization()//ÖÖ×Ó¹éÒ»»¯¸ºÔØ
+{
+    /*
+ÐèÒªÊä³öÖÖ×Ó¹éÒ»»¯¸ºÔØ= ÖÖ×ÓÉÏ´«Êý¾Ý¿é×ÜÊý/Ô­Ê¼ÎÄ¼þ´óÐ¡£¨ÎÄ¼þ¿é×Ü¸öÊý£¬´ÓI1ÖÐµÃµ½£©
+I3£¨±£Áô£©ÖÐÄÜÊä³ö·þÎñÆ÷Êä³öÁ÷Á¿ËÙÂÊ(Mbps) <rate>
+ÄÇÃ´´Ë´¦£¬ÖÖ×ÓÉÏ´«Êý¾Ý¿é×ÜÊý=  sum(rate) *¹Ì¶¨Ê±¼ä¼ä¸ô£¨¼ÇÂ¼ÖÜÆÚ£©*1024/256/8
+
+rate_ += 1024*pieceSize_+44*(1024*pieceSize_/1000+1);
+app_->rate_*8/5/1024/1024);
+*/
+    QSqlQuery query;
+    query.prepare("select Time from Server where Type = 'S' order by Time asc");
+    query.exec();
+    query.next();
+    double d1 = query.value(0).toDouble();
+    query.next();
+    double d2 = query.value(0).toDouble();
+    query.prepare("select sum(Rate) from Server where Type = 'S'");
+    query.exec();
+    query.next();
+    double sumRate = query.value(0).toDouble();
+    return sumRate*(d2-d1)*1024*1024/8/(1024*pieceSize+44*(1024*pieceSize/1000+1))/filePieceNum;
+
 }

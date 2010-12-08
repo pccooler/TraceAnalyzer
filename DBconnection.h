@@ -80,7 +80,7 @@ static bool create_Table()
                    "ServerID varchar(20),"
                    "Type varchar(1),"
                    "Rate double,"
-                   "uniID int)"))
+                   "Time double)"))
     {
         QMessageBox::critical(0, qApp->tr("Cannot Create Table"),
                               qApp->tr("Unable to Create Server Table."),

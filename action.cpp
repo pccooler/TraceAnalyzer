@@ -98,18 +98,6 @@ bool Action::do_insert_DB()
         }
         return true;
     }
-    if(action.toStdString() == "C")
-    {
-        query.prepare("insert into InterestConct (Time,InterestConctNum) values(:Time,:InterestConctNum)");
-        query.bindValue(0,time.toDouble());
-        query.bindValue(1,forthDate.toDouble());
-        if(!query.exec())
-        {
-            qDebug() << "Insert C error!";
-            return false;
-        }
-        return true;
-    }
     return false;
 }
 
@@ -118,6 +106,7 @@ void Action::do_query_DB()
     QSqlQuery query;
     query.exec("select * from action where JoinTime <> '' and StartTime <> '' and FinishTime <> '' and LeaveTime <> ''");
     //    query.exec("select * from action");
+
 
     while(query.next())
     {

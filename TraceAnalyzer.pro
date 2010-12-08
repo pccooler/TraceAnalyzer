@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     server.cpp \
     simsce.cpp \
     out.cpp \
-    inter_arrival.cpp \
     interestconct.cpp \
     step1.cpp \
     func.cpp \
@@ -33,7 +32,6 @@ HEADERS  += traceanalyzer.h \
     server.h \
     simsce.h \
     out.h \
-    inter_arrival.h \
     interestconct.h \
     step1.h \
     func.h \

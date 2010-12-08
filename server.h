@@ -14,7 +14,8 @@ private:
     QString serverID;
     QString type;
     QString rate;
-    int uniID;
+    QString time;
+    QString interestConnectNum;
 };
 
 #endif // SERVER_H
