@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QTime>
 
+
 Step1::Step1(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Step1)
@@ -57,10 +58,11 @@ void Step1::on_startBtn_clicked()
     qDebug()<< func_p->avg_peer_download_time();
     qDebug()<<func_p->avg_seed_uplink_utilization();
 
-//    func_p->seed_uplink_utilization(xval,yval,&pointNum);
-//    int i;
-//    for (i = 0;i<pointNum;++i)
-//    {
-//        qDebug()<<xval[i]<<yval[i];
-//    }
+
+    func_p->seed_uplink_utilization(xval,yval,&pointNum);
+    int i;
+    for (i = 0;i<pointNum;++i)
+    {
+        qDebug()<<xval[i]<<yval[i];
+    }
 }

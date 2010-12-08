@@ -9,8 +9,6 @@
 #include "Qwt/qwt_plot.h"
 #include "Qwt/qwt_plot_grid.h"
 
-const int Size = 27;
-
 namespace Ui {
     class Step4;
 }
@@ -26,8 +24,6 @@ public:
 private:
     Ui::Step4 *ui;
 
-    double xval[Size];
-    double yval[Size];
     QwtPlotCurve d_curves;
     QwtPlot *qwtplot_p;
     QwtPlotGrid *qwtplotgrid_p;

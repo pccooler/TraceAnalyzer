@@ -170,7 +170,7 @@ double func::avg_seed_uplink_utilization()//平均种子带宽利用率
     return (sumRate/sumSampling)/seedUpLink;
 }
 
-void seed_uplink_utilization(double *xval,double *yval,int *pointNum)//种子带宽利用率曲线图
+void func::seed_uplink_utilization(double *xval,double *yval,int *pointNum)//种子带宽利用率曲线图
 {
     QSqlQuery query;
     int totalNum = 0;
