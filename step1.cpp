@@ -64,5 +64,11 @@ void Step1::on_startBtn_clicked()
 //    {
 //        qDebug()<<xval[i]<<yval[i];
 //    }
-    qDebug()<<"seedNormalization:"<<func_p->seed_normalization();
+//    qDebug()<<"seedNormalization:"<<func_p->seed_normalization();
+//        func_p->interest_conct(xval,yval,&pointNum);
+//        int i;
+//        for (i = 0;i<pointNum;++i)
+//        {
+//            qDebug()<<xval[i]<<yval[i];
+//        }
 }

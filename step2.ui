@@ -104,7 +104,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>没用的按钮</string>
+    <string>有用的按钮</string>
    </property>
   </widget>
  </widget>

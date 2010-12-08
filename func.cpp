@@ -227,3 +227,18 @@ app_->rate_*8/5/1024/1024);
     return sumRate*(d2-d1)*1024*1024/8/(1024*pieceSize+44*(1024*pieceSize/1000+1))/filePieceNum;
 
 }
+
+void func::interest_conct(double *xval,double *yval,int *pointNum)//感兴趣连接曲线图
+{
+    QSqlQuery query;
+    int totalNum = 0;
+    if(!query.exec("select Time,InterestConctNum from InterestConct"))
+        qDebug()<<"error select Time,InterestConctNum from InterestConct";
+    while(query.next())
+    {
+        xval[totalNum]=query.value(0).toDouble();
+        yval[totalNum]=query.value(1).toDouble();
+        ++totalNum;
+    }
+    *pointNum = totalNum;
+}

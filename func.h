@@ -22,7 +22,7 @@ public:
     double avg_peer_uplink_utilization();//平均节点上传带宽利用率
     double avg_peer_downlink_utilization();//平均节点下载带宽利用率
     double avg_peer_normalization();//平均节点归一化负载
-    void interest_conct();//感兴趣连接曲线图
+    void interest_conct(double *xval,double *yval,int *pointNum);//感兴趣连接曲线图
     void rcdpiece();//RcdPiece曲线图
 
 
