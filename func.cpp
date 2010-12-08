@@ -3,6 +3,7 @@
 #include "out.h"
 #include "server.h"
 #include "action.h"
+#include "interaction.h"
 #include <QFile>
 #include <QTextStream>
 #include <QString>
@@ -117,6 +118,21 @@ bool func::do_load_file(QStringList fileNames)
 
                 delete action_p;
                 action_p = NULL;
+            }
+            if(fileName.contains(QRegExp(".*/[Ii]nter[Aa]ction.*")))//正则表达式匹配InterAction文件
+            {
+                InterAction *interaction_p = new InterAction();
+
+                line = in.readLine();
+                while(!line.isNull())
+                {
+                    interaction_p->setDate(line);
+                    interaction_p->do_insert_DB();
+                    line = in.readLine();
+                }
+
+                delete interaction_p;
+                interaction_p = NULL;
             }
         }
     }

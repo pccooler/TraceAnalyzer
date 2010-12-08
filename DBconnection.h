@@ -107,15 +107,16 @@ static bool create_Table()
         return false;
     }
 
-    //建立InterArrival表
-    //ActionType,PeerID,ArrivalTime,RcdPiece
-    if(!query.exec("create table InterArrival ("
+    //建立InterAction表
+    //<type> <time> <peerIP> <pieceArrivedSequence>
+    if(!query.exec("create table InterAction ("
+                   "type varchar(20),"
+                   "time double,"
                    "peerID varchar(20),"
-                   "ArrivalTime double,"
-                   "RcdPiece double)"))
+                   "pieceArrivedSequence varchar(20))"))
     {
         QMessageBox::critical(0, qApp->tr("Cannot Create Table"),
-                              qApp->tr("Unable to Create InterArrival Table."),
+                              qApp->tr("Unable to Create InterAction Table."),
                               QMessageBox::Cancel);
         return false;
     }

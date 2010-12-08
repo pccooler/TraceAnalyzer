@@ -19,12 +19,12 @@ SOURCES += main.cpp\
     server.cpp \
     simsce.cpp \
     out.cpp \
-    interestconct.cpp \
     step1.cpp \
     func.cpp \
     step2.cpp \
     step3.cpp \
-    step4.cpp
+    step4.cpp \
+    interaction.cpp
 
 HEADERS  += traceanalyzer.h \
     DBconnection.h \
@@ -32,12 +32,12 @@ HEADERS  += traceanalyzer.h \
     server.h \
     simsce.h \
     out.h \
-    interestconct.h \
     step1.h \
     func.h \
     step2.h \
     step3.h \
-    step4.h
+    step4.h \
+    interaction.h
 
 FORMS    += traceanalyzer.ui \
     step1.ui \

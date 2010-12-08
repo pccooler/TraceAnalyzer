@@ -12,7 +12,7 @@ Step3::Step3(QWidget *parent) :
     ui->comboBox->addItem("simsce");
     ui->comboBox->addItem("out");
     ui->comboBox->addItem("server");
-    ui->comboBox->addItem("InterArrival");
+    ui->comboBox->addItem("InterAction");
     ui->comboBox->addItem("InterestConct");
 
 }
